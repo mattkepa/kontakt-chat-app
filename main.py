@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_socketio import SocketIO
 import config
 
@@ -19,7 +19,7 @@ def home():
     """
     Displays home page of chat app
     """
-    return '<h1>Home Page</h1>'
+    return render_template('index.html')
 
 
 
