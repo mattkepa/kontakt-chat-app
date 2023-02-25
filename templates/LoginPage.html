@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Kontakt - Chat App</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/favicon.ico') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/LoginPage.css')}}">
+</head>
+
+<body>
+    <div class="page-container">
+        <div class="content-wrapper">
+            <div class="app-logo-container">
+                <img src="{{url_for('static', filename='assets/kontakt_logo.svg')}}" alt="" class="app-logo"
+                    height="50px" />
+                <h1 class="app-logo__title">Kontakt</h1>
+            </div>
+            <form action="/login" method="POST" class="user-form">
+                <input type="text" name="username" placeholder="Username" required />
+                <button type="submit" class="submit-btn">Plug in</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

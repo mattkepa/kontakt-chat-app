@@ -2,6 +2,7 @@ from flask import Flask, render_template
 from flask_socketio import SocketIO
 import config
 
+
 # SETUP APP
 # Initialize Flask core and SocketIO application
 app = Flask(__name__)
@@ -20,6 +21,14 @@ def home():
     Displays home page of chat app
     """
     return render_template('index.html')
+
+
+@app.route('/login')
+def login():
+    """
+    Displays login page
+    """
+    return render_template('LoginPage.html')
 
 
 
