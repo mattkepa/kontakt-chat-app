@@ -41,6 +41,7 @@
 }
 
 .toggle-users-btn,
+.hide-users-btn,
 .logout-btn {
     border: none;
     background-color: transparent;
@@ -69,6 +70,25 @@
     stroke: #ffcc00;
 }
 
+.hide-users-btn {
+    display: block;
+    margin-left: -10px;
+    margin-top: 5px;
+}
+
+.hide-users-btn svg {
+    height: 35px;
+    width: auto;
+}
+
+.hide-users-btn svg path {
+    stroke: #6b6c6b;
+}
+
+.hide-users-btn:hover svg path {
+    stroke: #ffcc00;
+}
+
 .content-wrapper {
     width: 100%;
     height: calc(100% - 75px);
@@ -83,6 +103,59 @@
     height: 100vh;
     width: 100%;
     flex: 0 0 auto;
+    padding: 25px 10px 10px 10px;
+    background-color: #f6f6f6;
+    transition: all 0.5s ease;
+}
+
+.users-container.active {
+    left: 0;
+}
+
+.users-container .section-heading {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.users-container .section-heading__title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.users-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    padding-left: 10px;
+}
+
+.user {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+.user .active-indicator > img {
+    display: block;
+    height: 25px;
+    width: auto;
+}
+
+.user .user__name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 14px 0;
 }
 
 .chat-container {
@@ -131,10 +204,29 @@
         position: static;
         width: 250px;
         height: auto;
+        padding: 25px;
+        border-right: 1px #e7e7e7 solid;
+    }
+
+    .hide-users-btn {
+        display: none;
     }
 
     .toggle-users-btn {
         visibility: hidden;
+    }
+
+    .users-list {
+        padding-left: 0;
+    }
+
+    .user .active-indicator > img {
+        height: 22px;
+    }
+
+    .user .user__name {
+        font-size: 1.05rem;
+        margin: 10px 0;
     }
 
     .content-wrapper {

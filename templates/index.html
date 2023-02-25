@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/HomePage.css')}}">
+    <script src="{{url_for('static', filename='app.js')}}" defer></script>
 </head>
 
 <body>
@@ -40,12 +41,35 @@
         </nav>
         <div class="content-wrapper">
             <div class="users-container">
-                USERS
-                <!-- TODO:
-                    - title
-                    - button to hide this container (aside)
-                    - active users list
-                 -->
+                <div class="section-heading">
+                    <button class="hide-users-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="48" d="M328 112L184 256l144 144" />
+                        </svg>
+                    </button>
+                    <p class="section-heading__title">Users</p>
+                </div>
+                <ul id="users-list" class="users-list">
+                    <li class="user">
+                        <div class="active-indicator">
+                            <img src="../static/assets/plug-icon.svg" alt="Green plug icon" />
+                        </div>
+                        <p class="user__name">Jason Response</p>
+                    </li>
+                    <li class="user">
+                        <div class="active-indicator">
+                            <img src="../static/assets/plug-icon.svg" alt="Green plug icon" />
+                        </div>
+                        <p class="user__name">Weir Doe</p>
+                    </li>
+                    <li class="user">
+                        <div class="active-indicator">
+                            <img src="../static/assets/plug-icon.svg" alt="Green plug icon" />
+                        </div>
+                        <p class="user__name">Justin Case</p>
+                    </li>
+                </ul>
             </div>
             <div class="chat-container">
                 CHAT
