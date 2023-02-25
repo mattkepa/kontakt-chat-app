@@ -160,6 +160,116 @@
 
 .chat-container {
     flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.messages {
+    width: 100%;
+    flex: 1 1 auto;
+    overflow-y: scroll;
+    list-style: none;
+    padding: 20px 20px 15px 20px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.message {
+    max-width: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    gap: 5px;
+}
+
+.message span {
+    display: block;
+    align-content: flex-start;
+}
+
+.message > div {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.message__time {
+    flex: 0 0 auto;
+    font-size: 0.65rem;
+    color: #6b6c6b;
+    margin-bottom: 5px;
+}
+
+.message__author {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #6b6c6b;
+    padding-left: 10px;
+    margin-bottom: 4px;
+}
+
+.message--received {
+    align-self: flex-start;
+}
+
+.message--sent {
+    align-self: flex-end;
+}
+
+.message--notification {
+    align-self: center;
+}
+
+.message .message__text {
+    padding: 10px;
+    min-height: 20px;
+    font-size: 1rem;
+    border-radius: 20px;
+}
+
+.message .notification__text {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #9e9e9e;
+}
+
+.message--received .message__text {
+    background-color: #e4e6ea;
+    align-self: flex-start;
+}
+
+.message--sent .message__text {
+    background-color: #ffcc00;
+    color: #ffffff;
+    align-self: flex-end;
+}
+
+.message--sent .message__time {
+    order: 2;
+}
+
+.message--sent .message__author {
+    padding-left: 0;
+    padding-right: 10px;
+    text-align: right;
+    visibility: hidden;
+}
+
+.input-container {
+    flex: 0 0 auto;
+    width: 100%;
+    padding: 10px 20px;
+    margin-top: 20px;
+}
+
+.input-container > input {
+    width: 100%;
+    border: 1px solid #6b6c6b;
+    padding: 10px 15px;
+    border-radius: 20px;
 }
 
 @media screen and (min-width: 576px) {
@@ -183,6 +293,28 @@
 
     .content-wrapper {
         height: calc(100% - 85px);
+    }
+
+    .message .message__text {
+        padding: 11px;
+        font-size: 18px;
+    }
+
+    .message__time {
+        font-size: 0.7rem;
+    }
+
+    .message__author {
+        font-size: 0.8rem;
+    }
+
+    .message .notification__text {
+        font-size: 0.9rem;
+    }
+
+    .input-container > input {
+        font-size: 18px;
+        padding: 11px 16px;
     }
 }
 
@@ -231,5 +363,13 @@
 
     .content-wrapper {
         height: calc(100% - 95px);
+    }
+
+    .messages {
+        padding: 25px 25px 15px 25px;
+    }
+
+    .input-container {
+        padding: 10px 25px;
     }
 }

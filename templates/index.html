@@ -72,11 +72,38 @@
                 </ul>
             </div>
             <div class="chat-container">
-                CHAT
-                <!-- TODO:
-                    - list of messages
-                    - form to input new message
-                -->
+                <ul id="messages" class="messages">
+                    <li class="message message--notification">
+                        <span class="notification__text">Jason Response joined the chat</span>
+                    </li>
+                    <li class="message message--received">
+                        <span class="message__time">09:41</span>
+                        <div>
+                            <span class="message__author">Weir Doe</span>
+                            <span class="message__text">hello guys</span>
+                        </div>
+                    </li>
+                    <li class="message message--received">
+                        <span class="message__time">09:41</span>
+                        <div>
+                            <span class="message__author">Justin Case</span>
+                            <span class="message__text">hi, what's up?</span>
+                        </div>
+                    </li>
+                    <li class="message message--sent">
+                        <span class="message__time">09:41</span>
+                        <div>
+                            <span class="message__author">Jason Response</span>
+                            <span class="message__text">hello</span>
+                        </div>
+                    </li>
+                    <li class="message message--notification">
+                        <span class="notification__text">Weir Doe left the chat</span>
+                    </li>
+                </ul>
+                <form class="message-form input-container">
+                    <input type="text" name="message" placeholder="Message..." />
+                </form>
             </div>
         </div>
     </div>
