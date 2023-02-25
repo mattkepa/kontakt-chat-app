@@ -79,6 +79,14 @@ def get_user():
     return {}
 
 
+@app.route('/api/users')
+def get_users():
+    """
+    Called only from frontend axios to get active users
+    """
+    return jsonify(users)
+
+
 
 if __name__ == '__main__':
     socketio.run(app, debug=True, host=config.Config.SERVER)
