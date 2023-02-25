@@ -1,6 +1,5 @@
 from flask import Flask, render_template, url_for, redirect, request, Response, make_response, session, jsonify
 from flask_socketio import SocketIO
-from flask_cors import cross_origin
 import config
 from uuid import uuid4
 
