@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/HomePage.css')}}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.0/socket.io.min.js" defer></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
     <script src="{{url_for('static', filename='app.js')}}" defer></script>
 </head>
@@ -54,35 +55,7 @@
                 <ul id="users-list" class="users-list"></ul>
             </div>
             <div class="chat-container">
-                <ul id="messages" class="messages">
-                    <li class="message message--notification">
-                        <span class="notification__text">Jason Response joined the chat</span>
-                    </li>
-                    <li class="message message--received">
-                        <span class="message__time">09:41</span>
-                        <div>
-                            <span class="message__author">Weir Doe</span>
-                            <span class="message__text">hello guys</span>
-                        </div>
-                    </li>
-                    <li class="message message--received">
-                        <span class="message__time">09:41</span>
-                        <div>
-                            <span class="message__author">Justin Case</span>
-                            <span class="message__text">hi, what's up?</span>
-                        </div>
-                    </li>
-                    <li class="message message--sent">
-                        <span class="message__time">09:41</span>
-                        <div>
-                            <span class="message__author">Jason Response</span>
-                            <span class="message__text">hello</span>
-                        </div>
-                    </li>
-                    <li class="message message--notification">
-                        <span class="notification__text">Weir Doe left the chat</span>
-                    </li>
-                </ul>
+                <ul id="messages" class="messages"></ul>
                 <form class="message-form input-container">
                     <input type="text" name="message" placeholder="Message..." />
                 </form>

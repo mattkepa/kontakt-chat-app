@@ -4,6 +4,9 @@ const hideUsersBtn = document.querySelector('.hide-users-btn');
 const usersSection = document.querySelector('.users-container');
 const usersList = document.getElementById('users-list');
 const logoutBtn = document.querySelector('.logout-btn');
+const messageForm = document.querySelector('.message-form');
+const messageInput = document.querySelector('.message-form input');
+const messagesList = document.getElementById('messages');
 
 //
 //
@@ -32,6 +35,62 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 //
 //
+// Initialize socket.io and add event listeners
+const socket = io.connect(`http://192.168.1.16:5000`);
+
+socket.on('connect', () => {
+  socket.emit('ehlo', currUser);
+});
+
+socket.on('broadcast', message => {
+  let msgElem;
+  if (!message.author) {
+    msgElem = createNotificationElem(message);
+  } else {
+    msgElem = createMessageElem(message);
+  }
+  messagesList.appendChild(msgElem);
+  msgElem.scrollIntoView({
+    behavior: 'smooth',
+    block: 'end',
+    inline: 'nearest',
+  });
+});
+
+socket.on('user-disconnected', users => {
+  renderUsersList(users);
+});
+
+socket.on('user-connected', users => {
+  renderUsersList(users);
+});
+
+//
+//
+// Binding event listener to form - send message
+messageForm.addEventListener('submit', handleSendMessage);
+
+function handleSendMessage(e) {
+  e.preventDefault();
+  if (!messageInput.value) {
+    console.log('InvalidInput: message cannot be empty');
+    return;
+  }
+
+  const message = {
+    sender_id: currUser.id,
+    author: currUser.username,
+    content: messageInput.value,
+    time: Math.floor(Date.now() / 1000),
+  };
+
+  socket.emit('message-sent', message);
+
+  messageInput.value = '';
+}
+
+//
+//
 // Create html elements
 function createUserElem(usr) {
   const elem = document.createElement('li');
@@ -57,6 +116,37 @@ function renderUsersList(users) {
   }
 }
 
+function createMessageElem(msg) {
+  const elem = document.createElement('li');
+  elem.classList.add('message');
+
+  if (msg.sender_id == currUser.id) {
+    elem.classList.add('message--sent');
+  } else {
+    elem.classList.add('message--received');
+  }
+
+  const innerHtml = `\
+    <span class="message__time">${msg.time}</span>
+    <div>
+      <span class="message__author">${msg.author}</span>
+      <span class="message__text">${msg.content}</span>
+    </div>`;
+
+  elem.innerHTML = innerHtml;
+  return elem;
+}
+
+function createNotificationElem(msg) {
+  const elem = document.createElement('li');
+  elem.classList.add('message');
+  elem.classList.add('message--notification');
+  const innerHtml = `\
+    <span class="notification__text">${msg.content}</span>`;
+  elem.innerHTML = innerHtml;
+  return elem;
+}
+
 //
 //
 // Binding event listeners to buttons to interact with interface
@@ -77,6 +167,8 @@ async function handleLogout(e) {
       data: { uid: currUser.id },
       headers: { 'Content-Type': 'application/json' },
     });
+    socket.emit('user-disconnect', currUser);
+    socket.disconnect();
     currUser = null;
     window.location.pathname = '/login';
   } catch (error) {

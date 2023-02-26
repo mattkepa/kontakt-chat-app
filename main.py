@@ -1,7 +1,8 @@
 from flask import Flask, render_template, url_for, redirect, request, Response, make_response, session, jsonify
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO, emit
 import config
 from uuid import uuid4
+from utils import convert_timestamp_to_timestr
 
 
 # SETUP APP
@@ -18,6 +19,27 @@ NAME_KEY = 'user'
 
 # APP VARIABLES
 users = []
+
+
+# ----------------------
+# SOCKET COMMUNICATION FUNCTIONS
+
+@socketio.on('ehlo')
+def handle_connect(user):
+    message = { 'content': f'{user["username"]} joined the chat' }
+    emit('broadcast', message, broadcast=True)
+    emit('user-connected', users, broadcast=True)
+
+@socketio.on('user-disconnect')
+def handle_disconnect(user):
+    message = { 'content': f'{user["username"]} left the chat' }
+    emit('broadcast', message, broadcast=True)
+    emit('user-disconnected', users, broadcast=True)
+
+@socketio.on('message-sent')
+def handle_message(message):
+    message['time'] = convert_timestamp_to_timestr(message['time'])
+    emit('broadcast', message, broadcast=True)
 
 
 # ----------------------
