@@ -1,4 +1,6 @@
 from flask import Flask, render_template, url_for, redirect, request, session, jsonify
+from flask_cors import CORS
+from flask_session import Session
 from flask_socketio import SocketIO, emit
 import config
 from uuid import uuid4
@@ -6,10 +8,13 @@ from utils import convert_timestamp_to_timestr
 
 
 # SETUP APP
-# Initialize Flask core and SocketIO application
+# Initialize Flask core application
 app = Flask(__name__)
 app.config.from_object('config.Config')
-
+# Congifure CORS and server side sessions
+Session(app)
+CORS(app)
+# Initialize Flask SocketIO application
 socketio = SocketIO(app)
 
 

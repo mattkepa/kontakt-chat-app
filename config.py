@@ -13,3 +13,5 @@ class Config:
     DEBUG = os.getenv('DEBUG')
     SECRET_KEY = os.getenv('SECRET_KEY')
     SERVER = os.getenv('SERVER')
+    SESSION_PERMANENT = False
+    SESSION_TYPE = 'filesystem'

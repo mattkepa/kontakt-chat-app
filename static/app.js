@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 //
 //
 // Initialize socket.io and add event listeners
-const socket = io.connect(`http://192.168.1.16:5000`);
+const socket = io.connect(window.location.origin);
 
 socket.on('connect', () => {
   socket.emit('ehlo', currUser);

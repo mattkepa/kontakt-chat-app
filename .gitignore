@@ -13,3 +13,6 @@ __pycache__/
 
 # Configuration files
 *.ini
+
+# Sessions
+flask_session/
