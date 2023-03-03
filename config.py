@@ -15,3 +15,5 @@ class Config:
     SERVER = os.getenv('SERVER')
     SESSION_PERMANENT = False
     SESSION_TYPE = 'filesystem'
+    SESSION_COOKIE_HTTPONLY = False
+    SESSION_FILE_THRESHOLD = 50

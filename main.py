@@ -23,7 +23,7 @@ socketio = SocketIO(app)
 NAME_KEY = 'user'
 
 # APP VARIABLES
-users = []
+users = {}
 
 
 # ----------------------
@@ -31,15 +31,18 @@ users = []
 
 @socketio.on('ehlo')
 def handle_connect(user):
+    users[request.sid] = user
     message = { 'content': f'{user["username"]} joined the chat' }
     emit('broadcast', message, broadcast=True)
     emit('user-connected', users, broadcast=True)
 
-@socketio.on('user-disconnect')
-def handle_disconnect(user):
+@socketio.on('disconnect')
+def handle_disconnect():
+    user = users.pop(request.sid)
     message = { 'content': f'{user["username"]} left the chat' }
     emit('broadcast', message, broadcast=True)
     emit('user-disconnected', users, broadcast=True)
+    session.pop(NAME_KEY, None)
 
 @socketio.on('message-sent')
 def handle_message(message):
@@ -69,7 +72,6 @@ def login():
     if request.method == 'POST':
         # create and save new active user
         user = { 'id': str(uuid4()), 'username': request.form['username'] }
-        users.append(user)
         session[NAME_KEY] = user
         return redirect(url_for('home'))
     return render_template('LoginPage.html')
@@ -77,23 +79,6 @@ def login():
 
 # ----------------------
 # API FUNCTIONS
-
-@app.route('/api/logout', methods=['POST'])
-def logout():
-    """
-    Handles logging the current user out by popping user from session
-    and removing from active users list
-    """
-    if request.method == 'POST':
-        usr = request.get_json()
-        usr_id = usr['uid']
-        for i, usr in enumerate(users):
-            if users[i]['id'] == usr_id:
-                del users[i]
-
-        session.pop(NAME_KEY, None)
-        return usr
-
 
 @app.route('/api/user')
 def get_user():
@@ -110,7 +95,7 @@ def get_users():
     """
     Called only from frontend axios to get active users
     """
-    return jsonify(users)
+    return users
 
 
 

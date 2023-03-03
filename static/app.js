@@ -26,7 +26,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   try {
     const res = await axios.get('/api/users');
-    const users = res.data;
+    const users_map = res.data;
+    users = [];
+    for (const key in users_map) {
+      users.push(users_map[key]);
+    }
     renderUsersList(users);
   } catch (error) {
     console.log(error);
@@ -57,11 +61,19 @@ socket.on('broadcast', message => {
   });
 });
 
-socket.on('user-disconnected', users => {
+socket.on('user-disconnected', users_map => {
+  users = [];
+  for (const key in users_map) {
+    users.push(users_map[key]);
+  }
   renderUsersList(users);
 });
 
-socket.on('user-connected', users => {
+socket.on('user-connected', users_map => {
+  users = [];
+  for (const key in users_map) {
+    users.push(users_map[key]);
+  }
   renderUsersList(users);
 });
 
@@ -161,15 +173,12 @@ function handleToggleUsers(e) {
 async function handleLogout(e) {
   try {
     removeUserElem(currUser.id);
-    await axios({
-      method: 'post',
-      url: '/api/logout',
-      data: { uid: currUser.id },
-      headers: { 'Content-Type': 'application/json' },
-    });
-    socket.emit('user-disconnect', currUser);
     socket.disconnect();
     currUser = null;
+    document.cookie =
+      'session=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; domain=' +
+      window.location.hostname +
+      ';';
     window.location.pathname = '/login';
   } catch (error) {
     console.log(error);
