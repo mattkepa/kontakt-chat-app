@@ -7,7 +7,7 @@ load_dotenv(dotenv_path=env_path)
 
 class Config:
     """
-    Set Flask configuration variables from .env file
+    Sets Flask configuration variables from .env file
     """
     TESTING = os.getenv('TESTING')
     DEBUG = os.getenv('DEBUG')

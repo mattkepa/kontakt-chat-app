@@ -57,7 +57,8 @@ def handle_message(message):
 @app.route('/home')
 def home():
     """
-    Displays home page of chat app if user is logged in
+    Displays home page of chat app if user is logged in (session is created),
+    otherwise redirect to login page
     """
     if NAME_KEY not in session:
         return redirect(url_for('login'))
@@ -67,7 +68,7 @@ def home():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     """
-    Displays login page
+    Displays login page and saves session
     """
     if request.method == 'POST':
         # create and save new active user
@@ -83,7 +84,7 @@ def login():
 @app.route('/api/user')
 def get_user():
     """
-    Called only from frontend axios to get current logged in user
+    Returns current logged in user from session. Called only from frontend
     """
     if NAME_KEY in session:
         return jsonify(session[NAME_KEY])
@@ -93,7 +94,7 @@ def get_user():
 @app.route('/api/users')
 def get_users():
     """
-    Called only from frontend axios to get active users
+    Returns active users list. Called only from frontend
     """
     return users
 

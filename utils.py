@@ -1,6 +1,9 @@
 from datetime import datetime
 
 def convert_timestamp_to_timestr(timestamp):
+    """
+    Converts timestap to readable time format
+    """
     time = datetime.fromtimestamp(timestamp)
     hours = time.hour
     minutes = time.minute
